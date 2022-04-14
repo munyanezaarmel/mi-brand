@@ -12,14 +12,10 @@ let routeContact=require('./routes/contact')
 let routeProfile=require('./routes/profile')
 //importing routelikes
 let routeLikes=require('./routes/likes')
-//importing routes for login
-let routeLogin=require('./routes/login')
 //importing routes for sign up
 let routeSignup=require('./routes/signup')
 //middleware for sign up 
 app.use('/api/user',routeSignup)
-//middlewares for Login
-app.use('/user/login',routeLogin)
 //middleware for likes
 app.use('/comment',routeLikes)
 //middleware for profile route
@@ -34,4 +30,8 @@ mongoose.connect(
     console.log('connected to database')
 )
 //listening 
-app.listen(3000)
+let port=process.env.PORT
+if(port==null || port==""){
+ port=8000
+}
+app.listen(port,()=>console.log(`listening on port${port}`))

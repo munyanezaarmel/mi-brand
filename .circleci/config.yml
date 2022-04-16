@@ -3,8 +3,7 @@ version: 2
 jobs:
   build:
     docker:
-      - image: cimg/node:16.14.2
-  
+       - image: cimg/node:16.14.2
     steps:
       - checkout
       - run: npm install

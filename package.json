@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "cross-env NODE_ENV=development nodemon server.js",
+    "test": "cross-env NODE_ENV=test mocha --exit",
+    "coverage": "nyc --reporter=html npm run test"
   },
   "keywords": [],
   "author": "",
@@ -13,10 +15,23 @@
     "@hapi/joi": "^17.1.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.0",
+    "cors": "^2.8.5",
     "dotenv": "^16.0.0",
     "express": "^4.17.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^6.2.10",
-    "nodemon": "^2.0.15"
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.15",
+    "nyc": "^15.1.0",
+    "swagger-jsdoc": "^6.2.0",
+    "swagger-ui": "^4.10.3",
+    "swagger-ui-express": "^4.3.0",
+    "yaml": "^2.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.6",
+    "chai-http": "^4.3.0",
+    "mocka": "^0.0.1",
+    "webpack-cli": "^4.9.2"
   }
 }

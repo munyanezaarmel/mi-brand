@@ -1,4 +1,24 @@
 const express=require('express')
+const cors=require('cors')
+const morgan=require('morgan')
+const swaggerUI=require('swagger-ui-express')
+const swaggerJsDoc=require('swagger-jsdoc')
+const options={
+    definition:{
+        openapi:"3.0.0",
+        info:{
+            title:"My Brand API",
+            version:"1.0.0",
+            description:" my personal portfolio api"
+        },
+        servers:[{
+             url:"http://localhost:3000"
+        }],
+        
+    },
+    apis:["./routes/*.js"]
+}
+const specs=swaggerJsDoc(options)
 let app= express()
 const mongoose=require('mongoose')
 require('dotenv').config()
@@ -24,7 +44,11 @@ app.use('/profile',routeProfile)
 app.use('/contact', routeContact)
 //middleware for routepost
 app.use('/blogs',routeblog)
+//middlewares for swagger documentation
+app.use("/api-docs",swaggerUI.serve,swaggerUI.setup(specs))
 //connecting to database
+app.use(cors())
+app.use(morgan('dev'))
 mongoose.connect(
     process.env.DATABASE_COLLECTION,{ useNewUrlParser: true },()=>
     console.log('connected to database')
@@ -34,4 +58,4 @@ let port=process.env.PORT
 if(port==null || port==""){
  port=8000
 }
-app.listen(port,()=>console.log(`listening on port${port}`))
+module.exports=app.listen(port,()=>console.log(`listening on port${port}`))

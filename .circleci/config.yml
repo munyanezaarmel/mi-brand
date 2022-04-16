@@ -1,30 +1,20 @@
 version: 2
 
-# Define the jobs we want to run for this project
+
 jobs:
   build:
     docker:
       - image: circleci/node:16.14.2
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
+  
     steps:
-      - run: npm install
-      - run: npm test
-  test:
-    docker:
-      - image: circleci/node:16.14.2
-        auth:
-          username: mydockerhub-user
-          password: $DOCKERHUB_PASSWORD  # context / project UI env-var reference
-    steps:
+      - checkout
       - run: npm install
       - run: npm test
 
 # Orchestrate our job run sequence
 workflows:
   version: 2
-  build_and_test:
+  build:
     jobs:
       - build
-      - test
+    

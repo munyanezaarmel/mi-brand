@@ -24,7 +24,7 @@ const mongoose=require('mongoose')
 require('dotenv').config()
 const bodyParser= require('body-parser')
 app.use(bodyParser.json())
-//importing routes of blogs
+//importing routes of blogsgh
 let routeblog=require('./routes/blogs')
 //importing routes of contact
 let routeContact=require('./routes/contact')

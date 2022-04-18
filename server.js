@@ -54,8 +54,8 @@ mongoose.connect(
     console.log('connected to database')
 )
 //listening 
-let port=process.env.PORT
-if(port==null || port==""){
- port=8000
-}
-module.exports=app.listen(port,()=>console.log(`listening on port${port}`))
+const PORT=process.env.PORT || 5000
+const HOST = process.env.HOST || '0.0.0.0';
+module.exports=app.listen(PORT, HOST, () => {
+    console.log('Server started on ' + HOST + ':' + PORT);
+})

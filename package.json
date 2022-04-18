@@ -2,12 +2,13 @@
   "name": "server",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=development nodemon server.js",
+    "start":"node server.js",
+    "postinstall": "npm run build",
+    "start:dev": "cross-env NODE_ENV=development nodemon server.js",
     "test": "cross-env NODE_ENV=test mocha --exit",
-    "coverage": "nyc --reporter=html npm run test",
-    "dev":"node server.js"
+    "coverage": "nyc --reporter=html npm run test"
   },
   "keywords": [],
   "author": "",

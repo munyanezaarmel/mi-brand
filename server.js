@@ -3,6 +3,7 @@ const cors=require('cors')
 const morgan=require('morgan')
 const swaggerUI=require('swagger-ui-express')
 const swaggerJsDoc=require('swagger-jsdoc')
+const yaml=require('yamljs')
 const options={
     definition:{
         openapi:"3.0.0",
@@ -54,7 +55,7 @@ mongoose.connect(
     console.log('connected to database')
 )
 //listening 
-const PORT=process.env.PORT || 5000
+const PORT=process.env.PORT || 3000
 const HOST = process.env.HOST || '0.0.0.0';
 module.exports=app.listen(PORT, HOST, () => {
     console.log('Server started on ' + HOST + ':' + PORT);

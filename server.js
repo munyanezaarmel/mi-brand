@@ -55,8 +55,7 @@ mongoose.connect(
     console.log('connected to database')
 )
 //listening 
-const PORT=process.env.PORT || 3000
-const HOST = process.env.HOST || '0.0.0.0';
-module.exports=app.listen(PORT, HOST, () => {
-    console.log('Server started on ' + HOST + ':' + PORT);
+const PORT=process.env.PORT || 8080
+module.exports=app.listen(PORT,() => {
+    console.log('Server started on '  + ':' + PORT);
 })

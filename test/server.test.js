@@ -78,7 +78,7 @@ describe('/testing all routes',()=>{
           done();
       })
   })
-  it('all tested message should be in form of objrct',function(done){
+  it('credential email, username, and password should be in form of object',function(done){
     this.timeout(10000);
       chai.request(server)
       .post('/user/login')
@@ -87,7 +87,7 @@ describe('/testing all routes',()=>{
           done();
       })
   })
-  it('all tested message should be in form of objrct',function(done){
+  it('comment and likes should be in form of object',function(done){
     this.timeout(10000);
       chai.request(server)
       .post('/comment')

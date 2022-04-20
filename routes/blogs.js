@@ -1,5 +1,6 @@
 const express=require('express')
 const Blogs= require('../models/BLOGS')
+const verify=require('./privateroutes')
 let router=express.Router()
 /**
  * @swagger
@@ -76,6 +77,8 @@ router.get('/', async (req, res)=>{
  * /blogs:
  *   post:
  *     summary: Create a new blog
+ *     security:
+ *      - ApiKeyAuth: []
  *     tags: [Blogs]
  *     requestBody:
  *       required: true
@@ -94,7 +97,7 @@ router.get('/', async (req, res)=>{
  *         description: Some server error
  */
 //create a blog
-router.post('/', async(req, res)=>{
+router.post('/', verify ,async(req, res)=>{
     const blog=new Blogs({
         title: req.body.title,
         description: req.body.description,

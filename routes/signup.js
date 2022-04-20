@@ -4,6 +4,66 @@ const jwt=require('jsonwebtoken')
 const bcrypt=require('bcryptjs')
 const Signup=require('../models/SIGNUP');
 const {registerValidation,loginValidation}=require('./passport')
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     ApiKeyAuth: 
+ *       type: apiKey
+ *       in: header
+ *       name: auth-token
+ *   schemas:
+ *     Login OR Signup:
+ *       type: object
+ *       required:
+ *         - email
+ *         - password
+ *       properties:
+ *         id:
+ *           type: string
+ *           description: The auto-generated id of the blog
+ *         username:
+ *           type: string
+ *           description: name must be 6 characters long
+ *         email:
+ *           type: string
+ *           description: valid email 
+ *         password:
+ *           type: string
+ *       example:
+ *         id: d5fE_asz
+ *         username: Armel
+ *         email: munyaarmel61@gmail.com
+ *         password: Kigali@1
+ */
+/**
+  * @swagger
+  * tags:
+  *   name: Login or Signup
+  *   description: login or signup
+  */
+/**
+ * @swagger
+ * /api/user/register:
+ *   post:
+ *     summary: Create a account
+ *     tags: [Login OR Signup]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Login OR Signup'
+ *     responses:
+ *       200:
+ *         description: acccount created go to login page
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Blogs'
+ *       500:
+ *         description: Some server error
+ */
 route.post('/register', async (req, res)=>{
   //lets validate a user before submitting
   const{error}=registerValidation(req.body);
@@ -27,6 +87,28 @@ route.post('/register', async (req, res)=>{
  res.json({message:err})
   }
 })
+/**
+ * @swagger
+ * /api/user/login:
+ *   post:
+ *     summary: login
+ *     tags: [Login OR Signup]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Login OR Signup'
+ *     responses:
+ *       200:
+ *         description: go to login page
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Login OR Signup'
+ *       500:
+ *         description: Some server error
+ */
 //login
 route.post('/login', async (req, res)=>{
   //lets validate a user before submitting

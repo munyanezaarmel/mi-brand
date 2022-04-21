@@ -180,6 +180,8 @@ router.delete('/:blogId',async(req, res)=>{
  * /blogs/{id}:
  *  put:
  *    summary: Update blog by its id
+ *    security:
+ *      - ApiKeyAuth: []
  *    tags: [Blogs]
  *    parameters:
  *      - in: path
@@ -208,7 +210,7 @@ router.delete('/:blogId',async(req, res)=>{
  */
 //update a blogId
 
-router.patch('/:blogId',async(req, res)=>{
+router.put('/:blogId',async(req, res)=>{
     try{
    const updated=await Blogs.updateOne(
     {_id:req.params.blogId},{$set:{title:req.body.title}}

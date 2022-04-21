@@ -10,7 +10,7 @@ const options={
         info:{
             title:"My Brand API",
             version:"1.0.0",
-            description:" my personal portfolio api"
+            description:" my personal portfolio api access it by clicking on this link https://github.com/munyanezaarmel/my-brand-api.git"
         },
         servers:[{
              url:"http://localhost:3000/"
@@ -35,8 +35,12 @@ let routeProfile=require('./routes/profile')
 let routeLikes=require('./routes/likes')
 //importing routes for sign up
 let routeSignup=require('./routes/signup')
+//importing routes for login
+let routeLogin=require('./routes/login')
 //middleware for sign up 
-app.use('/api/user',routeSignup)
+//middleware for login 
+app.use('/api/user/login',routeLogin)
+app.use('/api/user/register',routeSignup)
 //middleware for likes
 app.use('/comment',routeLikes)
 //middleware for profile route
@@ -55,7 +59,7 @@ mongoose.connect(
     console.log('connected to database')
 )
 //listening 
-const PORT=process.env.PORT || 8080
+const PORT=process.env.PORT || 3000
 module.exports=app.listen(PORT,() => {
     console.log('Server started on '  + ':' + PORT);
 })

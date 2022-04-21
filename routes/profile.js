@@ -35,6 +35,22 @@ let routerProfile=express.Router()
   *   name: profiles
   *   description: updating user credentials
   */
+ /**
+ * @swagger
+ * /profile:
+ *   get:
+ *     summary: get all profiles
+ *     tags: [Profiles]
+ *     responses:
+ *       200:
+ *         description: return all user
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Profiles'
+ */
 //get updated information
 routerProfile.get('/', async (req, res)=>{
     try{
@@ -93,7 +109,7 @@ routerProfile.post('/', async(req, res)=>{
  *        description: Some error happened
  */
 //updating a profile
-routerProfile.patch('/:userId',async(req, res)=>{
+routerProfile.put('/:userId',async(req, res)=>{
     try{
    const updated=await Profiles.updateOne(
     {_id:req.params.userId},{$set:{email:req.body.email}}

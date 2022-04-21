@@ -3,7 +3,7 @@ let route= express.Router();
 const jwt=require('jsonwebtoken')
 const bcrypt=require('bcryptjs')
 const Signup=require('../models/SIGNUP');
-const {registerValidation,loginValidation}=require('./passport')
+const {registerValidation}=require('./passport')
 /**
  * @swagger
  * components:
@@ -13,9 +13,10 @@ const {registerValidation,loginValidation}=require('./passport')
  *       in: header
  *       name: auth-token
  *   schemas:
- *     Login OR Signup:
+ *     Signup:
  *       type: object
  *       required:
+ *         - username
  *         - email
  *         - password
  *       properties:
@@ -39,32 +40,32 @@ const {registerValidation,loginValidation}=require('./passport')
 /**
   * @swagger
   * tags:
-  *   name: Login or Signup
-  *   description: login or signup
+  *   name:  Signup
+  *   description: create account
   */
 /**
  * @swagger
  * /api/user/register:
  *   post:
  *     summary: Create a account
- *     tags: [Login OR Signup]
+ *     tags: [ Signup]
  *     requestBody:
  *       required: true
  *       content:
  *         application/json:
  *           schema:
- *             $ref: '#/components/schemas/Login OR Signup'
+ *             $ref: '#/components/schemas/Signup'
  *     responses:
  *       200:
- *         description: acccount created go to login page
+ *         description: acccount created 
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/Blogs'
+ *               $ref: '#/components/schemas/Signup'
  *       500:
  *         description: Some server error
  */
-route.post('/register', async (req, res)=>{
+route.post('/', async (req, res)=>{
   //lets validate a user before submitting
   const{error}=registerValidation(req.body);
  if(error) return res.status(400).send(error.details[0].message);
@@ -86,54 +87,5 @@ route.post('/register', async (req, res)=>{
   catch(err){
  res.json({message:err})
   }
-})
-/**
- * @swagger
- * /api/user/login:
- *   post:
- *     summary: login
- *     tags: [Login OR Signup]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Login OR Signup'
- *     responses:
- *       200:
- *         description: go to login page
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Login OR Signup'
- *       500:
- *         description: Some server error
- */
-//login
-route.post('/login', async (req, res)=>{
-  //lets validate a user before submitting
- const{error}=loginValidation(req.body);
- if(error) return res.status(400).send(error.details[0].message);
-  //checking if the email is already exist in database
-  const user=await Signup.findOne({email:req.body.email})
-  if(!user) return res.status(400).send('email not found');
-  //checking if password is correct
-  const validPassword = await bcrypt.compare(req.body.password, user.password)
-  if(!validPassword) return res.status(400).send('invalid password');
-  // create and asign web token(jwt)
-  const token= jwt.sign({_id: user._id},process.env.SECRET)
-  res.header('auth-token',token).send(token)
-  res.send('logged In ')
-   let login =new Signup({
-       email: req.body.email,
-       password: req.body.password
-   })
-   try{
-const savedLogin= await login.save()
-res.json(savedLogin)
-   }
-   catch(err){
- res.json({message:err})
-   }
 })
 module.exports=route;

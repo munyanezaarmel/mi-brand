@@ -1,10 +1,6 @@
 const mongoose= require('mongoose')
-let singUpSchema=mongoose.Schema({
-    username:{
-        type:String,
-        max:255,
-        min:6
-    },
+let loginSchema=mongoose.Schema({
+    
     email:{
         type:String,
         required:true,
@@ -18,4 +14,4 @@ let singUpSchema=mongoose.Schema({
         min:6
     }
 })
-module.exports=mongoose.model('Signup',singUpSchema)
+module.exports=mongoose.model('login',loginSchema)

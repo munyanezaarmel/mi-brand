@@ -48,7 +48,7 @@ const verify=require('./privateroutes')
  *                 $ref: '#/components/schemas/Comment'
  */
 //get all likes information
-routerLikes.get('/',verify,async (req, res)=>{
+routerLikes.get('/',async (req, res)=>{
     try{
         const getAllupdates= await Comment.find({})
         res.json(getAllupdates)
@@ -92,7 +92,7 @@ routerLikes.get('/',verify,async (req, res)=>{
  *         description: Some server error
  */
 //post comment
-routerLikes.post('/', async(req, res)=>{
+routerLikes.post('/',verify, async(req, res)=>{
     const profile=new Comment({
         like: req.body.like,
         comment: req.body.comment

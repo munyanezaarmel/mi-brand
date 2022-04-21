@@ -136,7 +136,7 @@ router.post('/', verify ,async(req, res)=>{
  *         description: The book was not found
  */
 //retrieve a single blog
-router.get('/:blogId', async(req, res) => {
+router.get('/:blogId',async(req, res) => {
     try {
    const singleBlog= await Blogs.findById(req.params.blogId)
    res.json(singleBlog)
@@ -150,6 +150,8 @@ router.get('/:blogId', async(req, res) => {
  * /blogs/{id}:
  *   delete:
  *     summary: Remove the blog by  its id
+ *     security:
+ *      - ApiKeyAuth: []
  *     tags: [Blogs]
  *     parameters:
  *       - in: path
@@ -166,7 +168,7 @@ router.get('/:blogId', async(req, res) => {
  *         description: The book was not found
  */
 //DELETE A BLOG
-router.delete('/:blogId',async(req, res)=>{
+router.delete('/:blogId',verify,async(req, res)=>{
     try{
    const removed=  await Blogs.remove({_id:req.params.blogId})
    res.json(removed)
@@ -210,7 +212,7 @@ router.delete('/:blogId',async(req, res)=>{
  */
 //update a blogId
 
-router.put('/:blogId',async(req, res)=>{
+router.put('/:blogId',verify,async(req, res)=>{
     try{
    const updated=await Blogs.updateOne(
     {_id:req.params.blogId},{$set:{title:req.body.title}}

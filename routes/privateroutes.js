@@ -5,8 +5,6 @@ const { sign, verify } = jwt;
 module.exports=async function(req,res,next){
     const token=req.header('auth-token')
     if(!token) return res.status(400).send('access denied')
-
-    
     
     console.log("sdfd",token, process.env.SECRET)
     try{

@@ -12,6 +12,8 @@ describe('/testing all routes',()=>{
       .get('/blogs')
       .end((err, res)=>{
         res.should.have.status(200)
+       
+
           done();
       })
   })
@@ -21,6 +23,8 @@ describe('/testing all routes',()=>{
       .post('/blogs')
       .end((err, res)=>{
         res.should.be.a('object')
+      
+       
           done();
       })
   })
